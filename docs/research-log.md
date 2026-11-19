@@ -146,3 +146,26 @@ review directory and compared every exported array exactly with the earlier run:
 all equal, including X, labels, times and trial identities. Raw checksum unchanged.
 Visually checked the regenerated full-run heatmap. No model/accuracy experiment
 was performed. Submit the branch and review through a PR; do not merge automatically.
+
+## 2026-11-19 - Proposed M02-P01 evaluation protocol
+
+Created research/m02-evaluation-protocol after the owner merged the M01 review.
+Added a prospective protocol and machine-readable proposed decisions for review.
+No classifier or additional recording download is part of this batch.
+
+Proposal: retain the existing 8-30 Hz FIR but use [1,3) s task-contained windows;
+preserve the recorded reference and all 64 channels without automatic artifact
+correction/rejection. Define this as an uncorrected baseline with explicit limits.
+Fix CSP/LDA settings, run-held-out splits, no tuning, balanced-accuracy aggregation,
+chance reference, failure behavior and central-channel sensitivity. Keep S001 as
+development; preselect S002-S011 for a separately authorized cohort stage. Specify
+descriptive pilot uncertainty and a participant-level bootstrap for the complete
+planned cohort, without trial-independence or confirmatory significance claims.
+
+Validation: JSON parsed; existing numerical preprocessing on verified S001R04
+yielded 15 x 64 x 320 (8 left,7 right), with no retained FIR support crossing a
+task annotation. This only checks window geometry. The M02 task-containment
+enforcement and multi-run/model code remain unimplemented. Existing M01 config
+and outputs were preserved. All 41 offline tests, Ruff lint/format and Git
+whitespace checks passed. No dependencies were added. Protocol remains proposed
+pending owner review; submit through a PR and leave main unchanged.

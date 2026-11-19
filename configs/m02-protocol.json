@@ -1,0 +1,54 @@
+{
+  "protocol_id": "M02-P01",
+  "status": "proposed_pending_owner_review",
+  "dataset": {"name": "EEGMMIDB", "version": "1.0.0", "runs": [4, 8, 12]},
+  "development_subjects": [1],
+  "planned_cohort_subjects": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "cohort_execution_gate": "separate_owner_authorization_after_development_validation",
+  "preprocessing": {
+    "low_hz": 8.0,
+    "high_hz": 30.0,
+    "low_transition_hz": 2.0,
+    "high_transition_hz": 7.5,
+    "filter_length": 265,
+    "epoch_start_s": 1.0,
+    "epoch_stop_s": 3.0
+  },
+  "policies": {
+    "reference": "as_recorded",
+    "channels": "all_64_eeg",
+    "artifact_correction": "none",
+    "amplitude_rejection": "none",
+    "baseline": "none",
+    "resampling": "none",
+    "require_task_contained_fir_support": true,
+    "require_real_recording_fir_support": true,
+    "tuning": "none"
+  },
+  "csp": {
+    "n_components": 4,
+    "reg": 0.1,
+    "log": true,
+    "cov_est": "concat",
+    "transform_into": "average_power",
+    "norm_trace": false,
+    "rank": null,
+    "restr_type": "restricting",
+    "component_order": "mutual_info"
+  },
+  "lda": {"solver": "lsqr", "shrinkage": "auto", "priors": [0.5, 0.5]},
+  "evaluation": {
+    "outer_split": "subject_specific_leave_one_run_out",
+    "primary_metric": "mean_run_balanced_accuracy",
+    "chance_reference": "training_majority_dummy_classifier",
+    "pilot_uncertainty": "descriptive_fold_range_no_confidence_interval_or_p_value",
+    "cohort_uncertainty": "participant_bootstrap_percentile_95",
+    "bootstrap_resamples": 20000,
+    "bootstrap_seed": 20261119,
+    "cohort_ci_requires_all_planned_participants": true
+  },
+  "sensitivity": {
+    "central_channels": ["FC3", "FCz", "FC4", "C3", "Cz", "C4", "CP3", "CPz", "CP4"],
+    "role": "secondary_descriptive_no_primary_selection"
+  }
+}
