@@ -52,8 +52,8 @@ tests must remain offline; future real-recording checks will be separate.
 - [Sources](docs/sources.md): primary references and their relevance.
 - [Data handling](data/README.md) and [outputs](results/README.md).
 
-## License and publication
+## License
 
-The intended direction is open source, but a software license has not been chosen.
-No reuse license is granted yet. Keep the repository private until the owner
-selects a license before public release. The dataset has its own licensing terms.
+Spikesyn is open source under the [MIT License](LICENSE). The repository is public.
+EEGMMIDB data retain their separate dataset licensing terms; see the
+[dataset documentation](docs/dataset.md).

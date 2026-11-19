@@ -38,3 +38,10 @@ The first metadata test failed because the build backend reordered the equivalen
 Requires-Python constraints. Corrected the test to compare constraint sets, then
 reran the checks successfully. This was a test assumption, not a package defect.
 No scientific tests or experiments have been run; M00 validates packaging only.
+
+## 2026-11-19 - MIT license and public repository
+
+The owner selected the MIT License and made the GitHub repository public.
+Added LICENSE, declared MIT in package metadata, and updated current licensing
+notes. This resolves the software-license question recorded above; the earlier
+entries retain the historical M00 decisions. EEGMMIDB licensing remains separate.

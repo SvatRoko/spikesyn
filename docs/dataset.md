@@ -24,7 +24,7 @@ Use a supported MNE EEGBCI loader or direct official download in M01. Record the
 exact retrieval command, source version/URL, download time, checksum and local
 path. Keep original files intact and out of Git. Check dataset usage terms before
 redistribution; the official page currently lists Open Data Commons Attribution
-License v1.0. The dataset license is separate from Spikesyn's undecided license.
+License v1.0. The dataset license is separate from Spikesyn's MIT software license.
 
 No EEG has been downloaded or inspected in M00. Counts, duration, signal quality,
 and channel locations remain unverified locally. Cite the dataset and the
