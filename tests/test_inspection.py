@@ -120,14 +120,25 @@ def test_figures_and_spectrum_use_correct_scaling(raw, tmp_path):
         assert np.sum(power[0]) * 0.25 == pytest.approx((10e-6) ** 2 / 2)
 
 
-@pytest.mark.parametrize("fault", ["past_end", "before_start", "nonfinite_time"])
+@pytest.mark.parametrize(
+    "fault",
+    ["past_end", "before_start", "nonfinite_time", "small_overlap", "small_gap"],
+)
 def test_annotation_boundaries_and_finite_timing(raw, fault):
     # Mutate public annotation arrays after construction to avoid MNE clipping
     # invalid intervals before this validator can exercise its failure paths.
     if fault == "past_end":
-        raw.annotations.duration[-1] = 8
+        raw.annotations.duration[-1] = 6.003
     elif fault == "before_start":
-        raw.annotations.onset[0] = -0.1
+        raw.annotations.onset[0] = -0.003
+    elif fault == "small_overlap":
+        raw.annotations.onset[1] -= 0.003
+    elif fault == "small_gap":
+        raw.annotations.onset[1] += 0.003
+        raw.annotations.duration[1] -= 0.003
+        summary = inspection.summarize_raw(raw)
+        assert summary["unannotated_intervals_s"][0] == [2.0, 2.003]
+        return
     else:
         raw.annotations.duration[-1] = np.nan
     with pytest.raises(ValueError):

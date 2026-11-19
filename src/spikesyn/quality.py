@@ -23,6 +23,7 @@ def save_quality_review(raw: mne.io.BaseRaw, output: Path) -> dict:
     sfreq = float(recording.info["sfreq"])
     step = int(round(sfreq))
     starts = np.arange(0, recording.n_times, step)
+    edges_s = np.append(starts, recording.n_times) / sfreq
     amplitudes = np.stack(
         [np.ptp(data[:, s : s + step], axis=1) for s in starts], axis=1
     )
@@ -31,19 +32,21 @@ def save_quality_review(raw: mne.io.BaseRaw, output: Path) -> dict:
     np.savez(
         output / "raw-window-amplitudes.npz",
         peak_to_peak_uv=amplitudes,
-        start_s=starts / sfreq,
+        start_s=edges_s[:-1],
+        stop_s=edges_s[1:],
         channels=np.array(recording.ch_names),
     )
     fig, ax = plt.subplots(figsize=(14, 13))
-    image = ax.imshow(
+    image = ax.pcolormesh(
+        edges_s,
+        np.arange(len(data) + 1) - 0.5,
         amplitudes,
-        aspect="auto",
-        origin="upper",
-        extent=[0, recording.n_times / sfreq, len(data) - 0.5, -0.5],
+        shading="flat",
         cmap="magma",
         vmin=0,
         vmax=500,
     )
+    ax.invert_yaxis()
     ax.set_yticks(range(len(data)), recording.ch_names, fontsize=7)
     ax.set(
         xlabel="Time (s); nonoverlapping 1-second windows",
