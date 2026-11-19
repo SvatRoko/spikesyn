@@ -25,6 +25,7 @@ SHA256 = "3d161f88e1c00632585287d2ce584c2bc0f08862438eb255ea8723e00fac693d"
 LABELS = {"T0": "rest", "T1": "imagined_left_fist", "T2": "imagined_right_fist"}
 DEFAULT_EDF = Path("data/eegmmidb/1.0.0/S001/S001R04.edf")
 DEFAULT_OUTPUT = Path("results/m01-s001r04")
+TIMING_ATOL_S = 1e-8
 
 
 def verify_recording(path: Path) -> str:
@@ -99,9 +100,12 @@ def summarize_raw(raw: mne.io.BaseRaw) -> dict:
             raise ValueError(f"Unexpected annotation: {label}")
         if not np.isfinite([onset, length]).all() or length <= 0:
             raise ValueError("Invalid annotation timing")
-        if onset < previous_end - 1 / sfreq or onset + length > duration + 1 / sfreq:
+        if (
+            onset < previous_end - TIMING_ATOL_S
+            or onset + length > duration + TIMING_ATOL_S
+        ):
             raise ValueError("Annotation overlaps or exceeds recording bounds")
-        if onset - previous_end > 1 / sfreq:
+        if onset - previous_end > TIMING_ATOL_S:
             uncovered.append([float(previous_end), float(onset)])
         previous_end = onset + length
         annotations.append(
@@ -113,7 +117,7 @@ def summarize_raw(raw: mne.io.BaseRaw) -> dict:
                 "onset_sample": int(round(onset * sfreq)),
             }
         )
-    if duration - previous_end > 1 / sfreq:
+    if duration - previous_end > TIMING_ATOL_S:
         uncovered.append([float(previous_end), float(duration)])
     counts = dict(Counter(a["code"] for a in annotations))
     if set(counts) != set(LABELS):
@@ -145,7 +149,7 @@ def summarize_raw(raw: mne.io.BaseRaw) -> dict:
         "location_check": "names match template; not measured participant locations",
         "annotation_counts": counts,
         "unannotated_intervals_s": uncovered,
-        "annotation_timing_tolerance_s": 1 / sfreq,
+        "annotation_timing_tolerance_s": TIMING_ATOL_S,
         "template_montage": "colin27_1005",
         "annotations": annotations,
         "all_samples_finite": True,

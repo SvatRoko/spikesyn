@@ -121,3 +121,28 @@ Limitations: noncausal filtering can mix neighboring task/rest activity; frontal
 contamination persists; no reference/artifact policy is frozen for M02. Before
 model work, review those choices with the owner and define an evaluation protocol
 that discloses S001's exploratory use. No classifier or future engine was added.
+
+## 2026-11-19 - M01 protocol review on a task branch
+
+Created research/m01-protocol-review from faf4309. Reviewed validation, filter
+support, trial exclusions, quality display and the evaluation-readiness claims.
+Verdict: qualified pass for exploration; artifact/reference and evaluation choices
+still require explicit decisions before M02. Full findings: m01-protocol-review.md.
+
+Fixed the one-sample annotation tolerance that accepted small overlaps/overruns
+and hid short gaps. Use 1e-8 s for floating-point comparisons, not as measurement
+precision. Fixed quality heatmap coordinates for a partial final second using
+explicit time edges, also exported as window start/stop times.
+
+Quantified an existing limitation: all 14 retained epochs draw on filter context
+extending 0.725 s after their task annotation. Added per-trial support/context
+diagnostics without changing the scientific config or exclusion policy. A
+synthetic following-rest impulse demonstrably affects the preceding imagery
+epoch; an impulse beyond FIR support does not within numerical tolerance.
+
+Validation: 41 offline tests passed, Ruff lint/format passed, source/wheel builds
+passed, and Git whitespace checks passed. Processed S001R04 to a separate ignored
+review directory and compared every exported array exactly with the earlier run:
+all equal, including X, labels, times and trial identities. Raw checksum unchanged.
+Visually checked the regenerated full-run heatmap. No model/accuracy experiment
+was performed. Submit the branch and review through a PR; do not merge automatically.

@@ -83,7 +83,16 @@ evaluation settings still need review before M02; no classifier exists yet.
 - [Preliminary protocol](docs/experiment-protocol.md): exploration and evaluation.
 - [Research log](docs/research-log.md): decisions, validation, limitations.
 - [Sources](docs/sources.md): primary references and their relevance.
+- [M01 protocol review](docs/m01-protocol-review.md): findings, fixes and M02 gates.
 - [Data handling](data/README.md) and [outputs](results/README.md).
+
+## Branch workflow
+
+Use a short-lived branch for each bounded task and submit changes through a pull
+request. Keep `main` stable. PRs describe behavior changes, validation and scientific
+limitations; run the offline checks above before review. Leave merging to an
+explicit owner decision. This workflow is a project convention, not a claim that
+GitHub branch protections or automated CI are already configured.
 
 ## License
 

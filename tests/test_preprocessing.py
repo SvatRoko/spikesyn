@@ -56,6 +56,11 @@ def test_exact_epoch_alignment_and_boundary_ledger(recording, config):
         np.testing.assert_allclose(epoch, expected, atol=1e-14)
     assert ledger[-1]["exclusion_reasons"] == ["insufficient_real_data_for_fir_support"]
     assert not ledger[-1]["retained"]
+    assert retained[0]["filter_support_start_sample"] == 700
+    assert retained[0]["filter_support_stop_sample_exclusive"] == 1444
+    assert retained[0]["filter_context_before_task_s"] == 0
+    assert retained[0]["filter_context_after_task_s"] == pytest.approx(0.725)
+    assert all(row["filter_support_crosses_task_annotation"] for row in retained)
     np.testing.assert_array_equal(recording.get_data(), before)
     assert recording.ch_names == names
     assert recording.info["highpass"] == 0
@@ -162,3 +167,23 @@ def test_export_keeps_trial_identity_units_and_reproducible_arrays(
         for key, expected in original_arrays.items():
             np.testing.assert_array_equal(exported[key], expected)
     assert source.read_bytes() == payload
+
+
+def test_filtered_epoch_depends_on_neighboring_rest_within_fir_support(
+    recording, config
+):
+    _, original, _, _ = prepare_epochs(recording, config)
+
+    def with_impulse(time_s):
+        data = recording.get_data()
+        data[0, round(time_s * 160)] += 1e-3
+        changed = mne.io.RawArray(data, recording.info.copy(), verbose=False)
+        changed.set_annotations(recording.annotations.copy())
+        return prepare_epochs(changed, config)[1].get_data()[0]
+
+    # First task ends at 8.3 s, while its filtered epoch draws on data up to 9.025 s.
+    within_support = with_impulse(8.5)
+    beyond_support = with_impulse(10)
+    first_epoch = original.get_data()[0]
+    assert np.max(np.abs(within_support - first_epoch)) > 1e-9
+    np.testing.assert_allclose(beyond_support, first_epoch, rtol=0, atol=1e-14)

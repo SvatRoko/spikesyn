@@ -52,6 +52,12 @@ epoch samples lie within a task. Artifact transients can also spread through
 filtering. Do not interpret these epochs as temporally isolated, artifact-free
 imagery. The filtering policy must be reviewed before evaluation.
 
+The [protocol review](m01-protocol-review.md) quantifies this context: retained
+epochs have a support envelope ending 0.725 s beyond the task annotation. Each
+trial ledger now records support sample bounds, before/after-task context and
+whether support crosses the annotation. These diagnostics do not change labels
+or exclusions.
+
 MNE includes the epoch endpoint by default. Passing tmax = 4 - 1/160 = 3.99375 s
 implements [1,4) exactly: 480 samples per three-second epoch. Trial identities,
 original annotation indices, onset samples, class labels and exclusions are saved.

@@ -114,10 +114,16 @@ def prepare_epochs(
         if not np.isclose(onset / sfreq, annotation["onset_s"], atol=1e-8, rtol=0):
             raise ValueError("Task onset is not sample-aligned")
         start, stop = onset + start_offset, onset + stop_offset
+        support_start, support_stop = start - half_support, stop + half_support
+        context_before_s = max(0.0, annotation["onset_s"] - support_start / sfreq)
+        context_after_s = max(
+            0.0,
+            support_stop / sfreq - (annotation["onset_s"] + annotation["duration_s"]),
+        )
         reasons = []
         if config.epoch_stop_s > annotation["duration_s"] + 1e-8:
             reasons.append("epoch_exceeds_task_annotation")
-        if start - half_support < 0 or stop + half_support > raw.n_times:
+        if support_start < 0 or support_stop > raw.n_times:
             reasons.append("insufficient_real_data_for_fir_support")
         label = {"T1": 1, "T2": 2}[annotation["code"]]
         row = {
@@ -128,6 +134,13 @@ def prepare_epochs(
             "event_sample": onset,
             "start_sample": start,
             "stop_sample_exclusive": stop,
+            "filter_support_start_sample": support_start,
+            "filter_support_stop_sample_exclusive": support_stop,
+            "filter_context_before_task_s": context_before_s,
+            "filter_context_after_task_s": context_after_s,
+            "filter_support_crosses_task_annotation": (
+                context_before_s > 1e-8 or context_after_s > 1e-8
+            ),
             "retained": not reasons,
             "exclusion_reasons": reasons,
         }
