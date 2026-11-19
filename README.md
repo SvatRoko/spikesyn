@@ -8,7 +8,7 @@ trade-offs emerge. No decoding results or functional BCI are available yet.
 ## Current scope
 
 M00 is complete. Initial M01 retrieves and inspects Subject 001, Run 04 of
-EEGMMIDB, with reproducible raw traces, spectral summaries, and validation.
+EEGMMIDB, with reproducible quality plots, exploratory filtering/epochs, and validation.
 Classifiers, SNNs, commands, interfaces, cloud infrastructure, and live acquisition
 are outside this batch. See [About.md](About.md) for the full roadmap.
 
@@ -61,8 +61,20 @@ reports and figures remain under ignored `results/m01-s001r04/`. Existing genera
 reports are replaced when inspection is rerun. Optional `--recording` and `--output`
 flags accept local paths; `--recording` still requires the exact S001R04 checksum.
 
-See [observed findings and limitations](docs/m01-s001r04-inspection.md). Filtering,
-epoch extraction and artifact decisions are pending; M01 is not yet complete.
+See [inspection findings](docs/m01-s001r04-inspection.md). To run the provisional
+preprocessing pipeline and regenerate the full-run quality review:
+
+```powershell
+uv run --offline --locked python -m spikesyn.preprocessing
+```
+
+It currently produces 14 epochs of 64 channels by 480 samples (7 left, 7 right),
+with one recording-edge exclusion. Results stay in ignored
+`results/m01-s001r04/preprocessing/`. Configuration lives in
+[configs/m01-exploration.json](configs/m01-exploration.json); see
+[settings, exclusions and limitations](docs/m01-preprocessing.md). This completes
+the initial single-recording M01 pipeline. Artifact/reference policy and final
+evaluation settings still need review before M02; no classifier exists yet.
 
 ## Research documentation
 

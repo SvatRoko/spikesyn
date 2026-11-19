@@ -3,6 +3,10 @@
 Date: 2026-11-19. Status: initial M01 inspection complete; preprocessing is pending.
 This is descriptive exploration, not a classification experiment.
 
+Follow-up: the [exploratory preprocessing pipeline](m01-preprocessing.md) has now
+been implemented. The next-step and pending-work statements below describe the
+state at the initial inspection, before that follow-up.
+
 ## Provenance and reproduction
 
 Source: [official EDF](https://physionet.org/files/eegmmidb/1.0.0/S001/S001R04.edf),

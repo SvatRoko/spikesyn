@@ -37,3 +37,19 @@ papers: authors/year, DOI, task/dataset, method, findings, limitations and relev
   https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html
   Reference for segment overlap, detrending and V^2/Hz density scaling. This
   estimate describes spectra, not task discrimination. Checked 2026-11-19.
+
+## M01 filtering and epochs
+
+Checked 2026-11-19. Official MNE implementation references:
+
+- Filtering and resampling:
+  https://mne.tools/stable/auto_tutorials/preprocessing/30_filtering_resampling.html
+- FIR configuration and zero-phase behavior:
+  https://mne.tools/stable/generated/mne.filter.create_filter.html
+- Epoch boundaries and baseline defaults (overridden explicitly here):
+  https://mne.tools/stable/generated/mne.Epochs.html
+- EEG reference configuration:
+  https://mne.tools/stable/auto_tutorials/preprocessing/55_setting_eeg_reference.html
+
+These sources explain API behavior. They do not validate Spikesyn's exploratory
+passband/window or establish that filtering removes this recording's artifacts.

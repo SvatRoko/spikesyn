@@ -24,14 +24,15 @@ measurements or a justified model with explicit limitations.
 | M03 | Simple SNN and comparison | Matched splits, documented representation differences and measured trade-offs |
 | M04 | Recorded-data command demonstration | Reproducible playback, uncertainty handling and qualified capabilities |
 
-M00 is complete; the owner authorized initial M01 retrieval and inspection.
-Do not scaffold future engines, add their dependencies, or interpret installation
-tests as EEG evidence. Filtering and epoch decisions remain pending.
+M00 and the initial single-recording M01 pipeline are implemented. Provisional
+filtering/epoch choices and limitations are in m01-preprocessing.md. Review them
+before freezing an M02 protocol. Do not scaffold future engines or interpret
+installation tests as EEG evidence.
 
 ## Open scientific decisions
 
-M01 must investigate referencing, channel selection, filter design and boundary
-handling, epoch windows, baseline correction, and artifact policies. Approximately
+M01 has documented provisional reference/channel/filter/epoch policies; these
+require review before M02. Artifact handling remains unresolved. Approximately
 8-30 Hz is a proposal from About.md, not a validated optimum. Record decisions and
 reasons before applying them to evaluation data. Major methodological decisions
 require owner review. Choose the cohort, tuning strategy, and uncertainty procedure

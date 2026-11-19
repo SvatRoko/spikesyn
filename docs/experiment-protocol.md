@@ -1,8 +1,9 @@
 # Preliminary experimental protocol
 
-Status: version 0.2, 2026-11-19. Initial S001R04 retrieval and descriptive
+Status: version 0.3, 2026-11-19. Initial S001R04 retrieval and descriptive
 inspection have been executed; see [M01 findings](m01-s001r04-inspection.md).
-Preprocessing and model evaluation remain unexecuted proposals.
+A provisional filtering/epoch pipeline has now been executed; see
+[M01 preprocessing](m01-preprocessing.md). Model evaluation remains unexecuted.
 
 ## M01 exploration
 
@@ -30,7 +31,9 @@ Raw channel names are retained; normalized names and a colin27_1005 template
 are checked on an in-memory copy. Template positions are not subject measurements.
 
 No preprocessing choices or exploratory visual findings demonstrate successful
-decoding. No final epoch window or artifact threshold has been selected.
+decoding. The exploratory window is [1,4) s and the filter is 8-30 Hz zero-phase
+FIR. These settings are documented, tested proposals, not a frozen evaluation
+protocol. No amplitude artifact threshold has been selected.
 
 ## Future M02 evaluation
 

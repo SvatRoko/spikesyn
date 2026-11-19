@@ -1,0 +1,9 @@
+{
+  "low_hz": 8.0,
+  "high_hz": 30.0,
+  "low_transition_hz": 2.0,
+  "high_transition_hz": 7.5,
+  "filter_length": 265,
+  "epoch_start_s": 1.0,
+  "epoch_stop_s": 4.0
+}

@@ -82,3 +82,42 @@ Limitations/next step: M01 is not complete. Review full-run channel quality and
 propose reference/channel/filter/epoch policies before implementing preprocessing.
 No classifier, SNN, artifact correction, epoch extraction or command interface was
 implemented in this batch.
+
+## 2026-11-19 - M01 exploratory filtering and epochs
+
+Reviewed full-run/all-channel overview plots and one-second raw peak-to-peak
+heatmap. Repeated frontal transients remain a quality concern; the largest
+one-second window is Fp1 at 19-20 s (898 uV). Overview resolution does not support
+a definitive artifact diagnosis. No amplitude-based exclusion is justified yet.
+
+Implemented a tracked exploratory config and offline preprocessing command:
+preserve the recorded reference and all channels, filter each run continuously
+with an 8-30 Hz, 265-tap, zero-phase Hamming FIR, then extract [1,4) s imagery
+windows without baseline subtraction or resampling. The filter has 2/7.5 Hz
+transition widths and 0.825 s half-support. These are provisional choices, not
+a frozen evaluation protocol; reasons and limits are in m01-preprocessing.md.
+
+Observed output: 14 x 64 x 480 samples, 7 left and 7 right. The final left trial
+(cue 120.4 s, S001R04-a29) is excluded because its epoch would require reflected
+run-end data for FIR support. All 15 candidates and explicit reasons are retained
+in the local trial ledger. Balanced counts are incidental, not a selection goal.
+No artifact exclusions are performed. Retained filtered epochs still reach
+401.83 uV peak-to-peak; band-pass filtering does not establish artifact removal.
+
+Generated local epochs, trial identities/labels, filter coefficients, effective
+configuration, source/config hashes, versions and quality/comparison plots.
+Raw EDF checksum remained unchanged. Reviewed the filter-response and measured
+spectral comparison. Outputs stay ignored; only code/config and text findings
+are tracked.
+
+Validation: 37 offline tests passed. New tests check passband amplitude/phase,
+out-of-band attenuation, FIR symmetry, exact half-open sample/label alignment,
+raw immutability, invalid configs, task and filter-support boundary exclusions,
+and repeated export arrays/identities. Ruff lint/format, offline package build
+and Git whitespace checks passed. Synthetic fixtures were shared across tests.
+
+Initial single-recording M01 now has the required working processing foundation.
+Limitations: noncausal filtering can mix neighboring task/rest activity; frontal
+contamination persists; no reference/artifact policy is frozen for M02. Before
+model work, review those choices with the owner and define an evaluation protocol
+that discloses S001's exploratory use. No classifier or future engine was added.
