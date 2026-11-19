@@ -31,6 +31,11 @@ installation tests as EEG evidence.
 
 ## Open scientific decisions
 
+[M02-P01](m02-evaluation-protocol.md) now proposes explicit choices for owner
+review: task-contained windows, recorded reference, no automatic artifact rejection,
+fixed CSP/LDA, subject-specific run holdouts and staged uncertainty reporting.
+Its protocol PR is the decision point; no classifier or cohort evaluation has run.
+
 M01 has documented provisional reference/channel/filter/epoch policies; these
 require review before M02. Artifact handling remains unresolved. Approximately
 8-30 Hz is a proposal from About.md, not a validated optimum. Record decisions and

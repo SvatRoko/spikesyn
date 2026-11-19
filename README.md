@@ -84,6 +84,7 @@ evaluation settings still need review before M02; no classifier exists yet.
 - [Research log](docs/research-log.md): decisions, validation, limitations.
 - [Sources](docs/sources.md): primary references and their relevance.
 - [M01 protocol review](docs/m01-protocol-review.md): findings, fixes and M02 gates.
+- [Proposed M02 protocol](docs/m02-evaluation-protocol.md): fixed baseline and evaluation design.
 - [Data handling](data/README.md) and [outputs](results/README.md).
 
 ## Branch workflow

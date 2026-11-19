@@ -1,6 +1,6 @@
 # Preliminary experimental protocol
 
-Status: version 0.3, 2026-11-19. Initial S001R04 retrieval and descriptive
+Status: version 0.4, 2026-11-19. Initial S001R04 retrieval and descriptive
 inspection have been executed; see [M01 findings](m01-s001r04-inspection.md).
 A provisional filtering/epoch pipeline has now been executed; see
 [M01 preprocessing](m01-preprocessing.md). Model evaluation remains unexecuted.
@@ -36,6 +36,13 @@ FIR. These settings are documented, tested proposals, not a frozen evaluation
 protocol. No amplitude artifact threshold has been selected.
 
 ## Future M02 evaluation
+
+The concrete proposed design is [M02-P01](m02-evaluation-protocol.md), with
+[machine-readable decisions](../configs/m02-protocol.json). It supersedes the
+generic outline below once accepted through its protocol PR. It changes the
+primary window to [1,3) s with task-contained FIR support, fixes the uncorrected
+baseline and model settings, and separates S001 development from a gated cohort.
+It is a proposal, not an executed or already frozen evaluation.
 
 First validate the procedure for one participant using runs 4, 8, and 12. Each
 outer fold holds out one whole run and trains on the other two. Preserve run and
