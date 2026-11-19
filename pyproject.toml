@@ -10,7 +10,12 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.11,<3.12"
-dependencies = []
+dependencies = [
+    "matplotlib>=3.8,<4",
+    "mne>=1.13,<2",
+    "numpy>=1.26,<3",
+    "scipy>=1.11,<2",
+]
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.14,<1"]

@@ -26,6 +26,6 @@ path. Keep original files intact and out of Git. Check dataset usage terms befor
 redistribution; the official page currently lists Open Data Commons Attribution
 License v1.0. The dataset license is separate from Spikesyn's MIT software license.
 
-No EEG has been downloaded or inspected in M00. Counts, duration, signal quality,
-and channel locations remain unverified locally. Cite the dataset and the
+M00 retrieved no EEG. Initial M01 has now verified and inspected S001R04;
+see [observed findings](m01-s001r04-inspection.md). Other recordings remain unverified. Cite the dataset and the
 associated publications requested by PhysioNet when reporting experiments.

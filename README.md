@@ -7,8 +7,8 @@ trade-offs emerge. No decoding results or functional BCI are available yet.
 
 ## Current scope
 
-M00 establishes the environment, package, offline checks, and research protocol.
-M01 will explore recorded EEG, beginning with Subject 001, Run 04 of EEGMMIDB.
+M00 is complete. Initial M01 retrieves and inspects Subject 001, Run 04 of
+EEGMMIDB, with reproducible raw traces, spectral summaries, and validation.
 Classifiers, SNNs, commands, interfaces, cloud infrastructure, and live acquisition
 are outside this batch. See [About.md](About.md) for the full roadmap.
 
@@ -39,9 +39,30 @@ uv run --offline --locked ruff check .
 uv run --offline --locked ruff format --check .
 ```
 
-Create a distributable with `uv build`. No runtime dependencies are needed in M00.
-Add scientific dependencies only when their milestone requires them. Automated
-tests must remain offline; future real-recording checks will be separate.
+Create a distributable with `uv build`. M01 uses MNE-Python, NumPy, SciPy and
+Matplotlib. Tests use synthetic signals and mocked downloads; real-recording
+inspection is a separate command.
+
+## M01: retrieve and inspect S001R04
+
+From the repository root, after `uv sync --locked`:
+
+```powershell
+uv run --locked python -m spikesyn.inspection fetch
+uv run --offline --locked python -m spikesyn.inspection inspect
+```
+
+`fetch` retrieves only the official S001R04 EDF and checks its published SHA-256.
+It never replaces an existing recording; a checksum mismatch is an error.
+`inspect` needs no network. It validates metadata and events and produces a JSON
+report, central-channel traces and a Welch spectrum, without altering raw signals.
+The original file and retrieval manifest remain under ignored `data/eegmmidb/`;
+reports and figures remain under ignored `results/m01-s001r04/`. Existing generated
+reports are replaced when inspection is rerun. Optional `--recording` and `--output`
+flags accept local paths; `--recording` still requires the exact S001R04 checksum.
+
+See [observed findings and limitations](docs/m01-s001r04-inspection.md). Filtering,
+epoch extraction and artifact decisions are pending; M01 is not yet complete.
 
 ## Research documentation
 

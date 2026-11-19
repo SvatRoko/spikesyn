@@ -24,8 +24,9 @@ measurements or a justified model with explicit limitations.
 | M03 | Simple SNN and comparison | Matched splits, documented representation differences and measured trade-offs |
 | M04 | Recorded-data command demonstration | Reproducible playback, uncertainty handling and qualified capabilities |
 
-Only M00 is authorized for this implementation batch. Do not scaffold future
-engines, add their dependencies, or interpret installation tests as EEG evidence.
+M00 is complete; the owner authorized initial M01 retrieval and inspection.
+Do not scaffold future engines, add their dependencies, or interpret installation
+tests as EEG evidence. Filtering and epoch decisions remain pending.
 
 ## Open scientific decisions
 

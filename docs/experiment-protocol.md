@@ -1,6 +1,8 @@
 # Preliminary experimental protocol
 
-Status: planning only, version 0.1, 2026-11-19. No experiment has been executed.
+Status: version 0.2, 2026-11-19. Initial S001R04 retrieval and descriptive
+inspection have been executed; see [M01 findings](m01-s001r04-inspection.md).
+Preprocessing and model evaluation remain unexecuted proposals.
 
 ## M01 exploration
 
@@ -19,6 +21,13 @@ Status: planning only, version 0.1, 2026-11-19. No experiment has been executed.
 6. Validate T1/T2 interpretation for the selected run, epoch labels and dimensions,
    sampling/units, and boundaries. Add deterministic synthetic tests for scientific
    invariants and failures. Real-data inspection is separate from offline tests.
+
+Descriptive spectra use four-second Hann segments, 50% overlap, constant
+detrending and density scaling. This detrending applies only inside the spectral
+estimator, not to the stored signals. The plot highlights the proposed 8-30 Hz
+band without applying a filter. Central traces show the first 20 seconds only.
+Raw channel names are retained; normalized names and a colin27_1005 template
+are checked on an in-memory copy. Template positions are not subject measurements.
 
 No preprocessing choices or exploratory visual findings demonstrate successful
 decoding. No final epoch window or artifact threshold has been selected.

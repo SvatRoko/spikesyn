@@ -6,4 +6,8 @@ configuration, seeds, source revision, exact Python and dependency versions, and
 hardware in local experiment records. Track scientific interpretation and
 negative findings as text in docs, with identifiers referring to local outputs.
 
-M00 produces no scientific outputs or measured decoding results.
+M00 produced no scientific outputs. Initial M01 writes inspection.json,
+raw-central.png, welch-psd.png and welch-psd.npz under m01-s001r04/. Regenerate
+with `uv run --offline --locked python -m spikesyn.inspection inspect` from the
+repository root after fetching the recording. These are descriptive inspection
+outputs, not decoding results.

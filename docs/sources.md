@@ -18,3 +18,22 @@ review. No model-performance findings have been extracted or reproduced.
 
 Before model development, expand the literature review with verified original
 papers: authors/year, DOI, task/dataset, method, findings, limitations and relevance.
+
+## M01 implementation references
+
+- PhysioNet, EEGMMIDB v1.0.0 published checksums:
+  https://physionet.org/files/eegmmidb/1.0.0/SHA256SUMS.txt
+  Pins the integrity of S001/S001R04.edf. Checked 2026-11-19.
+- MNE-Python, official EDF reader:
+  https://mne.tools/stable/generated/mne.io.read_raw_edf.html
+  Reference for loading EDF+ and embedded annotations.
+- MNE-Python, EEGBCI channel-name standardization and standard montages:
+  https://mne.tools/stable/generated/mne.datasets.eegbci.standardize.html
+  https://mne.tools/stable/generated/mne.channels.make_standard_montage.html
+  Name normalization and template-location checks, not measured coordinates.
+  MNE 1.13 deprecates standard_1005 in favor of colin27_1005; the implementation
+  uses the current name and requires MNE >=1.13. Checked 2026-11-19.
+- SciPy, Welch spectral estimator:
+  https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html
+  Reference for segment overlap, detrending and V^2/Hz density scaling. This
+  estimate describes spectra, not task discrimination. Checked 2026-11-19.
